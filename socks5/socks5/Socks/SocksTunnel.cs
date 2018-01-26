@@ -175,7 +175,8 @@ namespace socks5
             e.Request = this.ModifiedReq;
             foreach (DataHandler f in Plugins)
                 f.OnServerDataReceived(this, e);
-            Client.Client.Send(e.Buffer, e.Offset, e.Count);
+            if(e.Count > 0)
+                Client.Client.Send(e.Buffer, e.Offset, e.Count);
             if (!RemoteClient.Receiving)
                 RemoteClient.ReceiveAsync();
         }
@@ -185,8 +186,8 @@ namespace socks5
             e.Request = this.ModifiedReq;
             foreach (DataHandler f in Plugins)
                 f.OnClientDataReceived(this, e);
-            
-            RemoteClient.Send(e.Buffer, e.Offset, e.Count);
+            if(e.Count > 0)
+                RemoteClient.Send(e.Buffer, e.Offset, e.Count);
             if (!Client.Client.Receiving)
                 Client.Client.ReceiveAsync();
         }
