@@ -151,9 +151,10 @@ namespace socks5.Plugin
             {
                 if (assemblytype.IsAssignableFrom(x.GetType()))
                 {
-                    if(((GenericPlugin)x).OnStart())
-					    if(((GenericPlugin)x).Enabled)
-                        	list.Push(x);
+                    var new_x = Activator.CreateInstance(x.GetType());
+                    if(((GenericPlugin)new_x).OnStart())
+                    if (((GenericPlugin)new_x).Enabled)
+                            list.Push(new_x);
                 }
             }
             return list;
