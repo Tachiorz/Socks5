@@ -178,8 +178,6 @@ namespace socks5
             Client.Client.Send(e.Buffer, e.Offset, e.Count);
             if (!RemoteClient.Receiving)
                 RemoteClient.ReceiveAsync();
-            if (!Client.Client.Receiving)
-                Client.Client.ReceiveAsync();
         }
 
         void Client_onDataReceived(object sender, DataEventArgs e)
@@ -191,8 +189,6 @@ namespace socks5
             RemoteClient.Send(e.Buffer, e.Offset, e.Count);
             if (!Client.Client.Receiving)
                 Client.Client.ReceiveAsync();
-            if (!RemoteClient.Receiving)
-                RemoteClient.ReceiveAsync();
         }
     }
 }
