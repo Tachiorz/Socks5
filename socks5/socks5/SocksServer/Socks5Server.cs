@@ -37,7 +37,7 @@ namespace socks5
         private Thread NetworkStats;
 
         public List<SocksClient> Clients = new List<SocksClient>();
-        public Stats Stats;
+        //public Stats Stats;
 
         private bool started;
 
@@ -46,7 +46,7 @@ namespace socks5
             Timeout = 5000;
             PacketSize = 4096;
             LoadPluginsFromDisk = false;
-            Stats = new Stats();
+            //Stats = new Stats();
             OutboundIPAddress = IPAddress.Any;
             _server = new TcpServer(ip, port);
             _server.onClientConnected += _server_onClientConnected;
@@ -61,6 +61,7 @@ namespace socks5
             _server.Start();
             started = true;
             //start thread.
+            /*
             NetworkStats = new Thread(new ThreadStart(delegate()
             {
                 while (started)
@@ -72,6 +73,7 @@ namespace socks5
                 }
             }));
             NetworkStats.Start();
+            */
         }
 
         public void Stop()
@@ -134,15 +136,15 @@ namespace socks5
         void Client_onDataSent(object sender, DataEventArgs e)
         {
             //Technically we are sending data from the remote server to the client, so it's being "received" 
-            this.Stats.AddBytes(e.Count, ByteType.Received);
-            this.Stats.AddPacket(PacketType.Received);
+            //this.Stats.AddBytes(e.Count, ByteType.Received);
+            //this.Stats.AddPacket(PacketType.Received);
         }
 
         void Client_onDataReceived(object sender, DataEventArgs e)
         {
             //Technically we are receiving data from the client and sending it to the remote server, so it's being "sent" 
-            this.Stats.AddBytes(e.Count, ByteType.Sent);
-            this.Stats.AddPacket(PacketType.Sent);
+            //this.Stats.AddBytes(e.Count, ByteType.Sent);
+            //this.Stats.AddPacket(PacketType.Sent);
         }
     }
 }
